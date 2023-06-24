@@ -1,0 +1,15 @@
+de/hft_stuttgart/cpl/ParseQueue.class
+de/hft_stuttgart/cpl/Storage.class
+de/hft_stuttgart/cpl/EXceLlenSeTokenManager.class
+de/hft_stuttgart/cpl/Value.class
+de/hft_stuttgart/cpl/SimpleCharStream.class
+de/hft_stuttgart/cpl/CellReferenceType.class
+de/hft_stuttgart/cpl/EXceLlenSeConstants.class
+de/hft_stuttgart/cpl/EXceLlenSe$JJCalls.class
+de/hft_stuttgart/cpl/Token.class
+de/hft_stuttgart/cpl/InterpreterConstants.class
+de/hft_stuttgart/cpl/InterpreterTokenManager.class
+de/hft_stuttgart/cpl/ParseException.class
+de/hft_stuttgart/cpl/EXceLlenSe$LookaheadSuccess.class
+de/hft_stuttgart/cpl/EXceLlenSe.class
+de/hft_stuttgart/cpl/TokenMgrError.class
