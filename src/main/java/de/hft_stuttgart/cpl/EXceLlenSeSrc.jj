@@ -162,45 +162,45 @@ TOKEN:
     public Object NumberExpression(): {Object value;}
     {
         (
-            value = NumbExpression()
+            value = NumExpr()
         )
         {return value;}
     }
 
-    public Double NumbExpression(): {double number = 0; double number2 = 0;}
+    public Double NumExpr(): {double num1 = 0; double num2 = 0;}
     {
-        number = term()
+        num1 = term()
         (
-            <ADD> number2 = term() {
+            <ADD> num2 = term() {
                 System.out.print("+ ");
-                number += number2;
+                num1 += num2;
             }
             |
-            <SUB> number2 = term() {
-                number -= number2;
+            <SUB> num2 = term() {
+                num1 -= num2;
             }
         )*
-        { return number; }
+        { return num1; }
     }
 
-    double term(): {double a; double b;}
+    double term(): {double num1; double num2;}
     {
-        a = factor()
+        num1 = factor()
         (
-            <MUL> b=factor() {
+            <MUL> num2=factor() {
                 System.out.print("* ");
-                a *= b;
+                num1 *= num2;
             }
             |
-            <DIV> b=factor() {
-                 a /= b;
+            <DIV> num2=factor() {
+                 num1 /= num2;
             }
             |
-            <MOD> b=factor() {
-                a %= b;
+            <MOD> num2=factor() {
+                num1 %= num2;
             }
         )*
-        { return a; }
+        { return num1; }
     }
 
     double factor(): {Token t; double a;}
@@ -211,7 +211,7 @@ TOKEN:
                 return Double.parseDouble(t.toString());
             }
         |
-        "(" a = NumbExpression() ")"
+        "(" a = NumExpr() ")"
         { return a; }
     }
 
@@ -342,7 +342,7 @@ TOKEN:
         {
             t = <TIMESTAMP>
             {
-                // Extract the timestamp value from the matched token
+                // take out the value of timestamp from the matched token
                 String timestampValue = t.image;
                 // Modify the timestamp value to include "T" and "Z"
                 String modifiedTimestampValue = timestampValue.replace("{", "").replace("}", "").replace(" ", "T") + "Z";

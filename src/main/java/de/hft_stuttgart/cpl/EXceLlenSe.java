@@ -119,14 +119,14 @@ public class EXceLlenSe implements EXceLlenSeConstants {
 
   final public Object NumberExpression() throws ParseException {
                                        Object value;
-    value = NumbExpression();
+    value = NumExpr();
          {if (true) return value;}
     throw new Error("Missing return statement in function");
   }
 
-  final public Double NumbExpression() throws ParseException {
-                                     double number = 0; double number2 = 0;
-    number = term();
+  final public Double NumExpr() throws ParseException {
+                              double num1 = 0; double num2 = 0;
+    num1 = term();
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -141,14 +141,14 @@ public class EXceLlenSe implements EXceLlenSeConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ADD:
         jj_consume_token(ADD);
-        number2 = term();
+        num2 = term();
                 System.out.print("+ ");
-                number += number2;
+                num1 += num2;
         break;
       case SUB:
         jj_consume_token(SUB);
-        number2 = term();
-                number -= number2;
+        num2 = term();
+                num1 -= num2;
         break;
       default:
         jj_la1[3] = jj_gen;
@@ -156,13 +156,13 @@ public class EXceLlenSe implements EXceLlenSeConstants {
         throw new ParseException();
       }
     }
-          {if (true) return number;}
+          {if (true) return num1;}
     throw new Error("Missing return statement in function");
   }
 
   final public double term() throws ParseException {
-                    double a; double b;
-    a = factor();
+                    double num1; double num2;
+    num1 = factor();
     label_3:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -178,19 +178,19 @@ public class EXceLlenSe implements EXceLlenSeConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MUL:
         jj_consume_token(MUL);
-        b = factor();
+        num2 = factor();
                 System.out.print("* ");
-                a *= b;
+                num1 *= num2;
         break;
       case DIV:
         jj_consume_token(DIV);
-        b = factor();
-                 a /= b;
+        num2 = factor();
+                 num1 /= num2;
         break;
       case MOD:
         jj_consume_token(MOD);
-        b = factor();
-                a %= b;
+        num2 = factor();
+                num1 %= num2;
         break;
       default:
         jj_la1[5] = jj_gen;
@@ -198,7 +198,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
         throw new ParseException();
       }
     }
-          {if (true) return a;}
+          {if (true) return num1;}
     throw new Error("Missing return statement in function");
   }
 
@@ -212,7 +212,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
       break;
     case LPAR:
       jj_consume_token(LPAR);
-      a = NumbExpression();
+      a = NumExpr();
       jj_consume_token(RPAR);
           {if (true) return a;}
       break;
@@ -399,7 +399,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
   final public Instant TimestampExpression() throws ParseException {
                                            Token t; Token t2; Instant i = Instant.MIN; int seconds = 0;
     t = jj_consume_token(TIMESTAMP);
-                // Extract the timestamp value from the matched token
+                // take out the value of timestamp from the matched token
                 String timestampValue = t.image;
                 // Modify the timestamp value to include "T" and "Z"
                 String modifiedTimestampValue = timestampValue.replace("{", "").replace("}", "").replace(" ", "T") + "Z";
