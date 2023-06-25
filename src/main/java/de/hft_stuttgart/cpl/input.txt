@@ -1,9 +1,9 @@
 97 + 88
-C1R1 = 'Hello' & ' World'
-C1R2 = 1 + 2
-{2023-10-10 10:12:30} + 20
-for i from 1 to 3 do C1Ri='Hallo' end
 3 * 2 + 12 / 4
-'Hello' <> ' World'
-0.32E-24
-.45E-6 + 60
+0.98-58
+.91E-6 + 40
+C1R1 = 'Java' & 'CC'
+C1R2 = 1 + 2
+{2020-02-21 08:20:20} + 20
+'Abc' <> ' Def'
+for i from 1 to 3 do C1Ri='Some Info' end
