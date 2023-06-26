@@ -20,6 +20,7 @@ public class EXceLlenSe {
     private static Storage dataStorage = new Storage();
     private static Deque<String> queue = new LinkedList<String>();
 
+    //used for stream input
     private static EXceLlenSe parser = new EXceLlenSe(System.in);
 
     public static void main(String args[]) throws ParseException {
@@ -83,6 +84,8 @@ TOKEN:
             < NOT_EQUALS: "<>" > |
             < ADD: "+" > |
             < SUB: "-" > |
+            < GREATER: ">" > |
+            < LESSER: "<" > |
             < #SIGNED: (<ADD>|<SUB>)> |
             < EOL: "\n" > |
             < MUL: "*" > |
@@ -130,6 +133,11 @@ TOKEN:
             {
                 System.out.println("Number Expression: " + value);
             }
+//            |
+//            LOOKAHEAD(2) value = TimestampExpression()
+//            {
+//                 System.out.println("Timestamp Expression: " + value);
+//            }
             |
             LOOKAHEAD(3) value = TimestampExpression()
             {
@@ -144,9 +152,10 @@ TOKEN:
             {
                 System.out.println("Variable Value: " + value);
             }
+
         )*
         {
-            System.out.println("Expression Result: " + value);
+            System.out.println("Expression Output: " + value);
             return value;
         }
     }
@@ -193,15 +202,52 @@ TOKEN:
             }
             |
             <DIV> num2=factor() {
+                System.out.print("/ ");
                  num1 /= num2;
             }
             |
             <MOD> num2=factor() {
+                System.out.print("% ");
                 num1 %= num2;
             }
         )*
         { return num1; }
     }
+//    public boolean NumComp(): { double num1; double num2; }
+//       {
+//            num1 = term()
+//            (
+//                <GREATER> num2 = term()
+//                {
+//                    System.out.print("> ");
+//                    return num1 > num2;
+//                }
+//                |
+//                <LESSER> num2 = term()
+//                {
+//                    System.out.print("< ");
+//                    return num1 < num2;
+//                }
+//            )*
+//       }
+
+//    public boolean ComparisonExpression(): { boolean value; }
+//    {
+//        (
+//            LOOKAHEAD(2, ">" value = NumComp())
+//            {
+//                System.out.print("> ");
+//                return value;
+//            }
+//            |
+//            LOOKAHEAD(2, "<" value = NumComp())
+//            {
+//                System.out.print("< ");
+//                return value;
+//            }
+//        )
+//    }
+
 
     double factor(): {Token t; double a;}
     {
@@ -304,7 +350,7 @@ TOKEN:
     {
         t = <STRING>
         {
-            // Extract the text value from the matched token
+            // Extract the value from the matched token
             String textValue = t.image.substring(1, t.image.length() - 1).replace("''", "'");
             sb.append(textValue);
             value = sb.toString();
@@ -342,9 +388,9 @@ TOKEN:
         {
             t = <TIMESTAMP>
             {
-                // take out the value of timestamp from the matched token
+                // Extracting the value of timestamp from the matched token
                 String timestampValue = t.image;
-                // Modify the timestamp value to include "T" and "Z"
+                // Modifying the timestamp value to include "T" and "Z"
                 String modifiedTimestampValue = timestampValue.replace("{", "").replace("}", "").replace(" ", "T") + "Z";
                 try {
                     // Parse the modified timestamp into an Instant

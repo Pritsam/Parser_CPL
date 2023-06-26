@@ -18,7 +18,7 @@ syntax:
   `\{\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\}`
 - A variable is defined by the regular expression
   `[ijklmn]`
-- An number expression is defined as in the sample grammar or as a result of
+- A number expression is defined as in the sample grammar or as a result of
   a function returning a number or as the difference of two timestamp values.
 - A timestamp expression is defined as a timestamp value plus or minus a number 
   expression giving the offset in seconds.

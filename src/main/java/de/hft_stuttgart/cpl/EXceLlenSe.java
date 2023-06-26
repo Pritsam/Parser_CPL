@@ -105,7 +105,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
         throw new ParseException();
       }
     }
-            System.out.println("Expression Result: " + value);
+            System.out.println("Expression Output: " + value);
             {if (true) return value;}
     throw new Error("Missing return statement in function");
   }
@@ -185,11 +185,13 @@ public class EXceLlenSe implements EXceLlenSeConstants {
       case DIV:
         jj_consume_token(DIV);
         num2 = factor();
+                System.out.print("/ ");
                  num1 /= num2;
         break;
       case MOD:
         jj_consume_token(MOD);
         num2 = factor();
+                System.out.print("% ");
                 num1 %= num2;
         break;
       default:
@@ -202,6 +204,40 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     throw new Error("Missing return statement in function");
   }
 
+//    public boolean NumComp(): { double num1; double num2; }
+//       {
+//            num1 = term()
+//            (
+//                <GREATER> num2 = term()
+//                {
+//                    System.out.print("> ");
+//                    return num1 > num2;
+//                }
+//                |
+//                <LESSER> num2 = term()
+//                {
+//                    System.out.print("< ");
+//                    return num1 < num2;
+//                }
+//            )*
+//       }
+
+//    public boolean ComparisonExpression(): { boolean value; }
+//    {
+//        (
+//            LOOKAHEAD(2, ">" value = NumComp())
+//            {
+//                System.out.print("> ");
+//                return value;
+//            }
+//            |
+//            LOOKAHEAD(2, "<" value = NumComp())
+//            {
+//                System.out.print("< ");
+//                return value;
+//            }
+//        )
+//    }
   final public double factor() throws ParseException {
                       Token t; double a;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -342,7 +378,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
   final public Object StringExpression() throws ParseException {
                                        Token t; Token op; Token compare; StringBuilder sb = new StringBuilder(); Object value;
     t = jj_consume_token(STRING);
-            // Extract the text value from the matched token
+            // Extract the value from the matched token
             String textValue = t.image.substring(1, t.image.length() - 1).replace("''", "'");
             sb.append(textValue);
             value = sb.toString();
@@ -399,9 +435,9 @@ public class EXceLlenSe implements EXceLlenSeConstants {
   final public Instant TimestampExpression() throws ParseException {
                                            Token t; Token t2; Instant i = Instant.MIN; int seconds = 0;
     t = jj_consume_token(TIMESTAMP);
-                // take out the value of timestamp from the matched token
+                // Extracting the value of timestamp from the matched token
                 String timestampValue = t.image;
-                // Modify the timestamp value to include "T" and "Z"
+                // Modifying the timestamp value to include "T" and "Z"
                 String modifiedTimestampValue = timestampValue.replace("{", "").replace("}", "").replace(" ", "T") + "Z";
                 try {
                     // Parse the modified timestamp into an Instant
@@ -482,18 +518,23 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     finally { jj_save(4, xla); }
   }
 
-  private boolean jj_3R_25() {
+  private boolean jj_3R_20() {
     if (jj_scan_token(ADD)) return true;
-    if (jj_3R_18()) return true;
+    if (jj_scan_token(NUMBER)) return true;
     return false;
   }
 
-  private boolean jj_3R_19() {
+  private boolean jj_3_2() {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_25()) {
+    if (jj_3R_20()) {
     jj_scanpos = xsp;
-    if (jj_3R_26()) return true;
+    if (jj_3R_21()) return true;
     }
     return false;
   }
@@ -509,35 +550,18 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_7()) return true;
+  private boolean jj_3R_8() {
+    if (jj_3R_14()) return true;
     return false;
   }
 
   private boolean jj_3R_16() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(18)) {
+    if (jj_scan_token(20)) {
     jj_scanpos = xsp;
     if (jj_3R_22()) return true;
     }
-    return false;
-  }
-
-  private boolean jj_3R_14() {
-    if (jj_3R_18()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_19()) { jj_scanpos = xsp; break; }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_28() {
-    if (jj_scan_token(LPAR)) return true;
-    if (jj_3R_14()) return true;
-    if (jj_scan_token(RPAR)) return true;
     return false;
   }
 
@@ -546,8 +570,16 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3R_8() {
+  private boolean jj_3R_31() {
+    if (jj_scan_token(MOD)) return true;
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_28() {
+    if (jj_scan_token(LPAR)) return true;
     if (jj_3R_14()) return true;
+    if (jj_scan_token(RPAR)) return true;
     return false;
   }
 
@@ -559,6 +591,12 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     jj_scanpos = xsp;
     if (jj_3R_13()) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_30() {
+    if (jj_scan_token(DIV)) return true;
+    if (jj_3R_23()) return true;
     return false;
   }
 
@@ -592,18 +630,6 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3R_31() {
-    if (jj_scan_token(MOD)) return true;
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_30() {
-    if (jj_scan_token(DIV)) return true;
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
   private boolean jj_3R_29() {
     if (jj_scan_token(MUL)) return true;
     if (jj_3R_23()) return true;
@@ -623,6 +649,32 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
+  private boolean jj_3_5() {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_18() {
+    if (jj_3R_23()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_24()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    if (jj_scan_token(SUB)) return true;
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
   private boolean jj_3R_10() {
     if (jj_scan_token(COLUMN)) return true;
     if (jj_3R_16()) return true;
@@ -636,8 +688,9 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3_5() {
-    if (jj_3R_10()) return true;
+  private boolean jj_3R_25() {
+    if (jj_scan_token(ADD)) return true;
+    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -646,12 +699,12 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3R_18() {
-    if (jj_3R_23()) return true;
+  private boolean jj_3R_19() {
     Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_24()) { jj_scanpos = xsp; break; }
+    xsp = jj_scanpos;
+    if (jj_3R_25()) {
+    jj_scanpos = xsp;
+    if (jj_3R_26()) return true;
     }
     return false;
   }
@@ -671,14 +724,8 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3_4() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    if (jj_scan_token(SUB)) return true;
-    if (jj_3R_18()) return true;
+  private boolean jj_3_3() {
+    if (jj_3R_8()) return true;
     return false;
   }
 
@@ -689,23 +736,12 @@ public class EXceLlenSe implements EXceLlenSeConstants {
     return false;
   }
 
-  private boolean jj_3_3() {
-    if (jj_3R_8()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_20() {
-    if (jj_scan_token(ADD)) return true;
-    if (jj_scan_token(NUMBER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_15() {
+  private boolean jj_3R_14() {
+    if (jj_3R_18()) return true;
     Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_20()) {
-    jj_scanpos = xsp;
-    if (jj_3R_21()) return true;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_19()) { jj_scanpos = xsp; break; }
     }
     return false;
   }
@@ -723,11 +759,16 @@ public class EXceLlenSe implements EXceLlenSeConstants {
   private int jj_gen;
   final private int[] jj_la1 = new int[14];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
       jj_la1_init_0();
+      jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1000000,0x100a0050,0x600,0x600,0xe000,0xe000,0x80010,0xc0010,0x80000000,0x180,0x10000,0x180,0x600,0x600,};
+      jj_la1_0 = new int[] {0x4000000,0x40280050,0x600,0x600,0x38000,0x38000,0x200010,0x300010,0x0,0x180,0x40000,0x180,0x600,0x600,};
+   }
+   private static void jj_la1_init_1() {
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[5];
   private boolean jj_rescan = false;
@@ -916,7 +957,7 @@ public class EXceLlenSe implements EXceLlenSeConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[32];
+    boolean[] la1tokens = new boolean[34];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -927,10 +968,13 @@ public class EXceLlenSe implements EXceLlenSeConstants {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
+          if ((jj_la1_1[i] & (1<<j)) != 0) {
+            la1tokens[32+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 34; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -25,47 +25,51 @@ public interface EXceLlenSeConstants {
   /** RegularExpression Id. */
   int SUB = 10;
   /** RegularExpression Id. */
-  int SIGNED = 11;
+  int GREATER = 11;
   /** RegularExpression Id. */
-  int EOL = 12;
+  int LESSER = 12;
   /** RegularExpression Id. */
-  int MUL = 13;
+  int SIGNED = 13;
   /** RegularExpression Id. */
-  int DIV = 14;
+  int EOL = 14;
   /** RegularExpression Id. */
-  int MOD = 15;
+  int MUL = 15;
   /** RegularExpression Id. */
-  int AND = 16;
+  int DIV = 16;
   /** RegularExpression Id. */
-  int TIMESTAMP = 17;
+  int MOD = 17;
   /** RegularExpression Id. */
-  int VAR = 18;
+  int AND = 18;
   /** RegularExpression Id. */
-  int LPAR = 19;
+  int TIMESTAMP = 19;
   /** RegularExpression Id. */
-  int RPAR = 20;
+  int VAR = 20;
   /** RegularExpression Id. */
-  int LB = 21;
+  int LPAR = 21;
   /** RegularExpression Id. */
-  int RB = 22;
+  int RPAR = 22;
   /** RegularExpression Id. */
-  int SINGLE_QUOTE = 23;
+  int LB = 23;
   /** RegularExpression Id. */
-  int FOR = 24;
+  int RB = 24;
   /** RegularExpression Id. */
-  int FROM = 25;
+  int SINGLE_QUOTE = 25;
   /** RegularExpression Id. */
-  int TO = 26;
+  int FOR = 26;
   /** RegularExpression Id. */
-  int DO = 27;
+  int FROM = 27;
   /** RegularExpression Id. */
-  int COLUMN = 28;
+  int TO = 28;
   /** RegularExpression Id. */
-  int ROW = 29;
+  int DO = 29;
   /** RegularExpression Id. */
-  int FOREND = 30;
+  int COLUMN = 30;
   /** RegularExpression Id. */
-  int FORMATTED = 31;
+  int ROW = 31;
+  /** RegularExpression Id. */
+  int FOREND = 32;
+  /** RegularExpression Id. */
+  int FORMATTED = 33;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -83,6 +87,8 @@ public interface EXceLlenSeConstants {
     "\"<>\"",
     "\"+\"",
     "\"-\"",
+    "\">\"",
+    "\"<\"",
     "<SIGNED>",
     "\"\\n\"",
     "\"*\"",
